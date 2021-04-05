@@ -20,7 +20,7 @@ class WOL ():
         self.grid = np.zeros((self.x, self.y), dtype=int)         # Creates a grid that is X by Y
 
         for i in startValues:
-            self.grid[i[0], i[0]] = 1
+            self.grid[i[1], i[0]] = 1
         
         print(self.grid)                                          # Print grid
 
