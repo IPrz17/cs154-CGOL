@@ -1,4 +1,4 @@
-# CONWAY'S GAME OF LIFE
+# World'S GAME OF LIFE
 #
 #------------------------------RULE 1------------------------------
 # Dead cell with exactly 3 living cells becomes ALIVE
@@ -26,7 +26,6 @@ class Cell:
     def isAlive(self)        :
         return self.status
     
-
 class WOL ():
     def __init__ (self, x, y, startValues):        
         self.x = x 
@@ -39,12 +38,24 @@ class WOL ():
         
         print(self.grid)                                          # Print grid
 
-class Conway ():
-    def __init__ (self):
-        x, y = Conway.getDimensions()                   #get input, ex: 5 5
-        startValues = Conway.getStartValues()           #get input, ex: 1 1    
-        #conway = WOL(x=5, y=5, startValues=[[1,1], [2,3]])
-        conway = WOL(x, y, startValues)
+class World ():
+
+    # def __init__ (self, x, y, startValues):        
+    #     self.x = x 
+    #     self.y = y
+        
+    #     # Creates a grid that is X by Y
+    #     self.grid = np.zeros((self._x, self.y), dtype=int)
+    #     for i in startValues:
+    #         self.grid[i[1], i[0]] = 1  #this causes error pic in chat
+        
+    #     print(self.grid)                                          # Print grid
+    def __init__(self):
+    # def manualGrid (self):
+        x, y = World.getDimensions()                   #get input, ex: 5 5
+        startValues = World.getStartValues()           #get input, ex: 1 1    
+        #World = WOL(x=5, y=5, startValues=[[1,1], [2,3]])
+        World = WOL(x, y, startValues)
 
     def getDimensions():
         x, y = input("Enter dimensions for the world: ").split()
@@ -62,4 +73,4 @@ class Conway ():
         return startValues
 
 
-Conway()    #runs game
+World()    #runs game
