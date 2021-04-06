@@ -13,13 +13,27 @@
 
 import numpy as np 
 
+class Cell:
+    def __init__(self):
+        self.status = False
+
+    def setDead(self):
+        self.status = False
+
+    def setAlive(self):
+        self.status = True
+
+    def isAlive(self)        :
+        return self.status
+    
+
 class WOL ():
     def __init__ (self, x, y, startValues):        
         self.x = x 
         self.y = y
-
+        
         # Creates a grid that is X by Y
-        self.grid = np.zeros((self.x, self.y), dtype=int)
+        self.grid = np.zeros((self._x, self.y), dtype=int)
         for i in startValues:
             self.grid[i[1], i[0]] = 1  #this causes error pic in chat
         
