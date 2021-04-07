@@ -14,6 +14,8 @@
 
 import numpy as np 
 from random import randint
+
+from numpy.core.defchararray import join
 class Cell:
     def __init__(self):
         self.status = False
@@ -75,27 +77,16 @@ class World ():
         startValues = []
         numCells = int(input("Enter number living cells: "))
         print("Enter living cell coordinates: ") 
-        for i in range(numCells):
-            x, y = input().split()
-            startValues.append([int(x),int(y)])
-        # x = []
-        # y = []
-        # for i in range(numCells):
-        #     x, y = input().split()
-        #     for i in range(len(arr1)): #Outer; rows (y)
-        #         for j in range(len(arr1[i])): #Inner; columns (x)        
-
-        print(startValues)
-        for row in self.grid:
-            for col in row:
-                col.setDead()
         
+        x = []
+        y = []
         for i in range(numCells):
-          
-        (self.grid[1][1]).printStatus()
-        (self.grid[2][2]).printStatus()
+            a, b = input().split()
+            x.append(int(a))
+            y.append(int(b))
 
-        
+        for i in range(numCells):
+            (self.grid[x[i]][y[i]]).setAlive()
 
     # Function for printing the grid
     def displayGrid(self):
@@ -105,6 +96,45 @@ class World ():
             print('')
             for col in row:
                 col.printStatus()
+
+    def updateCells(self):
+        
+        listOfDeath = []  #living cells to kill with flu shots
+        wildBulldogs = [] #dead cells to reincarnate as wild bulldogs
+
+        for row in range(len(self.grid)):
+            for col in range(len(self.grid[row])):
+                #get the valid neighbors to check
+                neighborsToCheck = self.getValidNeighbors(row , col)
+                
+                listOfLife = []
+
+                for nCell in neighborsToCheck:
+                    #check status of ncell
+                    if(nCell.isAlive()):
+                        listOfLife.append(nCell)
+
+                #If cell is alive check the neighbour status.
+                
+        #set status
+
+    def getValidNeighbors(self, iNrow , iNcol):
+        #search parameters:
+        
+
+        #empty list for neighbors
+        validNeighbours = []
+        for row in range(iNrow):
+            for col in range(iNcol):
+
+                #rowToCheck = row + iNrow
+                #colToCheck = col + iNcol 
+
+                valid = True
+
+                #if not a valid neighbor we change to false
+                    
+        return validNeighbours 
 
 
 def main():
@@ -127,9 +157,28 @@ def main():
     val = input('Would you like a random grid? (T/F) => ')
     print('')
     print('')
+    print('OK! Here is the land and it\'s filled with wild Bulldogs!')
+    print('Let\'s explore!')
+    print('PRESS SPACE BAR TO STEP THROUGH TIME :)')
+    print('Quit by pressing q')
+    print('View credits with c')
+    ConwayGame = World(x, y, val)
+    user_action = ' '
+    while user_action != 'q':
+        print('')
+        print('')
+        user_action = input('Commands: (q) (enter) (c)')
 
-    cgl = World(x, y, val)
-    
+        if user_action == '':
+            print('')
+            print('')
+            ConwayGame.updateCells()
+            ConwayGame.displayGrid()
+        if user_action == 'c':
+            print('')
+            print('')
+            print('CREDITS: ')
+
     print('')
     print('')
     print('')
