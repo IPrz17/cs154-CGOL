@@ -1,5 +1,5 @@
 #
-# #  * World'S GAME OF LIFE
+# #  * Conways'S GAME OF LIFE
 #
 # ! ------------------------------RULE 1------------------------------
 # * Dead cell with exactly 3 living cells becomes ALIVE
@@ -24,27 +24,35 @@ class Cell:
     def setAlive(self):
         self.status = True
 
-    def isAlive(self)        :
+    def isAlive(self):
         return self.status
+    
+    def printStatus(self):
+        if(self.status):
+            print('|', end="")
+        else:
+            print('X', end="")
+        #print(self.status) 
+
 class World ():
     def __init__ (self, x, y, ans):        
         self.x = x
         self.y = y
-        self.ans = ans
-        # self.grid = np.zeros((self.x, self.y), dtype=Cell)
         self.grid = [[Cell() for i in range(self.x)] for j in range(self.y)]
+        self.choice(ans)
         # for i in startValues
         # self.grid[i[1], i[0]] = 1  #this causes error pic in chat
-        self.choice(self.ans)
-
+        
     # Function to determine if user wants random or manual grid
     def choice (self, ans):
         if (ans == 'T' or ans == 't'):
-            print('You will now see a random generated grid')
+            print('You will now see a random generated grid!')
             self.randGrid()
+            self.displayGrid()
         else:
-            print('You will now see a manual grid')
-            # self.manualGrid();
+            print('You will now create a manual grid!')
+            self.manualGrid()
+            self.displayGrid()
         
     # Function for random grid 
     def randGrid (self):
@@ -57,41 +65,71 @@ class World ():
                 val = randint(0,2)
                 if (val == 1):
                     col.setAlive()
+                else:
+                    col.setDead()
 
-    #Function for printing the grid
-    def displayGrid(self):
-        print('x -> Dead Cell')
-        print('1 -> Alive Cell')
+
+
+    # function for a user defined grid
+    def manualGrid (self):
+        startValues = []
+        numCells = int(input("Enter number living cells: "))
+        print("Enter living cell coordinates: ") 
+        
+        for i in range(numCells):
+            x, y = input().split()
+            startValues.append([(x,y)])
+
+        print(startValues)
         for row in self.grid:
             for col in row:
-                if(col.isAlive()):
-                    print(1)
+                 
+                #if (sV in startValues):
+                
+                val = randint(0,2)
+                if (val == 1):
+                    col.setAlive()
                 else:
-                    print('x')
+                    col.setDead()
+                
+                col.printStatus
 
-
-
-    # def manualGrid (self):
-    #     self.startValues = self.getStartValues()           #get input, ex: 1 1    
-    #     #World = WOL(x=5, y=5, startValues=[[1,1], [2,3]])
-    #     World = WOL(x, y, startValues)
-
-    # def getStartValues():#gets living cells from user input, ex: 1 1...2 2...3 3 
-    #     startValues = []
-    #     numCells = int(input("Enter number living cells: "))
-    #     print("Enter living cell coordinates: ") 
-    #     for i in range(numCells):
-    #         x, y = input().split()
-    #         startValues.append([int(x),int(y)])
-    #     return startValues
+    # Function for printing the grid
+    def displayGrid(self):
+        print('X -> Dead Cell')
+        print('O -> Alive Cell')
+        for row in self.grid:
+            print('')
+            for col in row:
+                col.printStatus()
 
 def main():
+    print('')
+    print('')
+    print('')
+    print('-----------------------------')
+    print('!!!!CONWAY\'S GAME OF LIFE!!!!')
+    print('-----------------------------')
+    print('--------------------CSci 154-')
+    print('-----------------------------')
+    print('-----------------------------')
+    print('')
+    print('')
+
     x = int(input("Enter the width for the world: "))
     y = int(input("Enter the height for the world: "))
-    val = raw_input('Would you like a random grid? (T/F) => ')
+    print('')
+
+    val = input('Would you like a random grid? (T/F) => ')
+    print('')
+    print('')
+
     cgl = World(x, y, val)
-    cgl.randGrid()
-    cgl.displayGrid()
+    
+    print('')
+    print('')
+    print('')
+    print('')
 
 if __name__ == "__main__":
     main()    
