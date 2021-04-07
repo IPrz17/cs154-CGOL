@@ -31,7 +31,7 @@ class Cell:
     
     def printStatus(self):
         if(self.status):
-            print('|', end="")
+            print('O', end="")
         else:
             print('X', end="")
         #print(self.status) 
@@ -42,8 +42,6 @@ class World ():
         self.y = y
         self.grid = [[Cell() for i in range(self.x)] for j in range(self.y)]
         self.choice(ans)
-        # for i in startValues
-        # self.grid[i[1], i[0]] = 1  #this causes error pic in chat
         
     # Function to determine if user wants random or manual grid
     def choice (self, ans):
@@ -55,6 +53,13 @@ class World ():
             print('You will now create a manual grid!')
             self.manualGrid()
             self.displayGrid()
+            #VVVVfor debuggingVVVV
+            print('')
+            self.getValidNeighbors(3,3)
+            print('')
+            self.getValidNeighbors(4,4)
+            
+            
         
     # Function for random grid 
     def randGrid (self):
@@ -118,24 +123,39 @@ class World ():
                 
         #set status
 
-    def getValidNeighbors(self, iNrow , iNcol):
-        #search parameters:
+    #determines if a neighbor is valid .. returns a bool
+    def isValid(self, cellRow, cellCol, row, col):
+        #get row and column we are checking
+        thisRow = cellRow + row
+        thisCol = cellCol + col
+        valid = True
+
+        #these conditions must NOT be met for the cell to be valid
+        #           OUT OF BOUNDS
+        if thisRow == cellRow and thisCol == cellCol:
+            valid = False
+        if thisRow < 0 or thisRow >= self.x or thisCol < 0 or thisCol >= self.y: 
+            valid = False
+        return valid
+
+
+
+    #gets the valid neighbors of specific cell .. returns a list of cells
+    def getValidNeighbors(self, cellRow , cellCol):
         
-
-        #empty list for neighbors
         validNeighbours = []
-        for row in range(iNrow):
-            for col in range(iNcol):
+        #for each cell .. call helper function to check if a valid cell
+        for row in range(-1, 2):
+            for col in range(-1, 2):
+                # if it is a valid neighbor we append the cell to the list
+                if self.isValid(cellRow, cellCol, row, col):
+                    x = cellRow + row
+                    y = cellCol + col
+                    print('ValidN ->', x, y)
+                    validNeighbours.append(self.grid[x][y])
 
-                #rowToCheck = row + iNrow
-                #colToCheck = col + iNcol 
-
-                valid = True
-
-                #if not a valid neighbor we change to false
-                    
         return validNeighbours 
-
+    
 
 def main():
     print('')
@@ -163,25 +183,25 @@ def main():
     print('Quit by pressing q')
     print('View credits with c')
     ConwayGame = World(x, y, val)
-    user_action = ' '
-    while user_action != 'q':
-        print('')
-        print('')
-        user_action = input('Commands: (q) (enter) (c)')
+    # user_action = ' '
+    # while user_action != 'q':
+    #     print('')
+    #     print('')
+    #     user_action = input('Commands: (q) (enter) (c)')
 
-        if user_action == '':
-            print('')
-            print('')
-            ConwayGame.updateCells()
-            ConwayGame.displayGrid()
-        if user_action == 'c':
-            print('')
-            print('')
-            print('CREDITS: ')
+    #     if user_action == '':
+    #         print('')
+    #         print('')
+    #         ConwayGame.updateCells()
+    #         ConwayGame.displayGrid()
+    #     if user_action == 'c':
+    #         print('')
+    #         print('')
+    #         print('CREDITS: ')
 
-    print('')
-    print('')
-    print('')
+    # print('')
+    # print('')
+    # print('')
     print('')
 
 if __name__ == "__main__":
