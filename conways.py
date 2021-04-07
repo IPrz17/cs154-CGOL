@@ -75,24 +75,27 @@ class World ():
         startValues = []
         numCells = int(input("Enter number living cells: "))
         print("Enter living cell coordinates: ") 
-        
         for i in range(numCells):
             x, y = input().split()
-            startValues.append([(x,y)])
+            startValues.append([int(x),int(y)])
+        # x = []
+        # y = []
+        # for i in range(numCells):
+        #     x, y = input().split()
+        #     for i in range(len(arr1)): #Outer; rows (y)
+        #         for j in range(len(arr1[i])): #Inner; columns (x)        
 
         print(startValues)
         for row in self.grid:
             for col in row:
-                 
-                #if (sV in startValues):
-                
-                val = randint(0,2)
-                if (val == 1):
-                    col.setAlive()
-                else:
-                    col.setDead()
-                
-                col.printStatus
+                col.setDead()
+        
+        for i in range(numCells):
+          
+        (self.grid[1][1]).printStatus()
+        (self.grid[2][2]).printStatus()
+
+        
 
     # Function for printing the grid
     def displayGrid(self):
@@ -102,6 +105,7 @@ class World ():
             print('')
             for col in row:
                 col.printStatus()
+
 
 def main():
     print('')
