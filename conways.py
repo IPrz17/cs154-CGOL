@@ -12,10 +12,8 @@
 # *   Living cell has fewer than two live neighbors (UNDERPOPULATION)
 # *   Living cell has more than three live neithbors (OVERPOPULATION)
 
-import numpy as np 
 from random import randint
-
-from numpy.core.defchararray import join
+import time
 class Cell:
     def __init__(self):
         self.status = False
@@ -31,9 +29,9 @@ class Cell:
     
     def printStatus(self):
         if(self.status):
-            print('O', end="")
+            print('@', end="")
         else:
-            print('X', end="")
+            print('<', end="")
         #print(self.status) 
 
 class World ():
@@ -41,26 +39,47 @@ class World ():
         self.x = x
         self.y = y
         self.grid = [[Cell() for i in range(self.x)] for j in range(self.y)]
+        #self.randGrid()
+        #self.displayGrid()
         self.choice(ans)
         
-    # Function to determine if user wants random or manual grid
+    # Function to determine users choice of type of grid
     def choice (self, ans):
-        if (ans == 'T' or ans == 't'):
+        if (ans == 'R' or ans == 'r'):
             print('You will now see a random generated grid!')
             self.randGrid()
             self.displayGrid()
-        else:
+        elif(ans == 'M' or ans == 'm'):
             print('You will now create a manual grid!')
             self.manualGrid()
             self.displayGrid()
-            #VVVVfor debuggingVVVV
-            print('')
-            self.getValidNeighbors(3,3)
-            print('')
-            self.getValidNeighbors(4,4)
-            
-            
+        elif(ans == 'L' or ans == 'l'):
+            self.presets()
+                    
+    # def presets(self):
+    #     print('You\'ve chosen to choose a magically generated grid!')
+    #     print('Here are your options:')
+    #     print('Blinker: (1)')
+    #     print('')
+    #     print('')
+    #     print('')
+    #     print('')
+    #     print('')
+    #     print('')
+    #     print('')
+    #     ans = input('Make a choice: ')
+    #     if (ans == ):
+    #         print('You will now see a random generated grid!')
+    #         self.randGrid()
+    #         self.displayGrid()
+    #     elif(ans == 'M' or ans == 'm'):
+    #         print('You will now create a manual grid!')
+    #         self.manualGrid()
+    #         self.displayGrid()
+    #     elif(ans == 'L' or ans == 'l'):
+    #         self.presets()
         
+
     # Function for random grid 
     def randGrid (self):
         # create an array
@@ -74,8 +93,6 @@ class World ():
                     col.setAlive()
                 else:
                     col.setDead()
-
-
 
     # function for a user defined grid
     def manualGrid (self):
@@ -95,8 +112,8 @@ class World ():
 
     # Function for printing the grid
     def displayGrid(self):
-        print('X -> Dead Cell')
-        print('O -> Alive Cell')
+    #     print('X -> Dead Cell')
+    #     print('O -> Alive Cell')
         for row in self.grid:
             print('')
             for col in row:
@@ -112,6 +129,7 @@ class World ():
                 #get the valid neighbors to check
 
                 neighborsToCheck = self.getValidNeighbors(row , col)
+                
                 listOfLiving = []
 
                 for nCell in neighborsToCheck:
@@ -121,37 +139,29 @@ class World ():
                         listOfLiving.append(nCell)
 
                 length = len(listOfLiving)
-                cellToCheck = self.grid[row][col]
                 #Check rules if cell is ALIVE
-                if cellToCheck.isAlive():
+                if self.grid[row][col].isAlive() == True:
                     #RULE: Living cell has fewer than two live neighbors
                     #RULE: Living cell has more than three live neighbors
                     if length < 2 or length > 3:
-                       liveCellsToDie.append(cellToCheck) #Death of cell occurs
+                       liveCellsToDie.append(self.grid[row][col]) #Death of cell occurs
 
                     #RULE: Living cell with 2 or 3 living neighbors LIVES
                     if length == 2 or length == 3:
-                        deadCellsToLive.append(cellToCheck) #Cell becomes ALIVE
+                        deadCellsToLive.append(self.grid[row][col]) #Cell becomes ALIVE
                 
                 #Check rules if cell is DEAD
                 else:   
                     if length == 3:
                     #RULE: Dead cell with exactly 3 living cells becomes ALIVE
-                        deadCellsToLive.append(cellToCheck) #Cell becomes ALIVE
-
+                        deadCellsToLive.append(self.grid[row][col]) #Cell becomes ALIVE
+                        
         #Update cells
-        for cellToDie in liveCellsToDie:
-            cellToDie.setAlive()
-
-
+        for cItems in deadCellsToLive:
+            cItems.setAlive()
         
-
-
-
-
-
-
-
+        for cItems in liveCellsToDie:
+            cItems.setDead()
 
     #determines if a neighbor is valid .. returns a bool
     def isValid(self, cellRow, cellCol, row, col):
@@ -168,8 +178,6 @@ class World ():
             valid = False
         return valid
 
-
-
     #gets the valid neighbors of specific cell .. returns a list of cells
     def getValidNeighbors(self, cellRow , cellCol):
         
@@ -178,15 +186,13 @@ class World ():
         for row in range(-1, 2):
             for col in range(-1, 2):
                 # if it is a valid neighbor we append the cell to the list
-                cellToCheck = self.grid[row][col]
-                if cellToCheck.isValid(cellRow, cellCol, row, col):
+                self.grid[row][col] = self.grid[row][col]
+                if self.isValid(cellRow, cellCol, row, col):
                     x = cellRow + row
                     y = cellCol + col
-                    print('ValidN ->', x, y)
-                    #(self.grid[x][y])
+                    #print('ValidN ->', x, y)
                     validNeighbours.append(self.grid[x][y])
-                        
-                    
+
         return validNeighbours 
     
 
@@ -207,27 +213,53 @@ def main():
     y = int(input("Enter the height for the world: "))
     print('')
 
-    val = input('Would you like a random grid? (T/F) => ')
+    print('Please choose an option:')
+    print('Manually input starting grid with random living nodes => (R)')
+    print('Manually input starting grid and choose living nodes => (M)')
+    # print('Choose from an amazing list of magical preset grids!! => (L)')
+    val = input('')
     print('')
     print('')
     print('OK! Here is the land and it\'s filled with wild Bulldogs!')
     print('Let\'s explore!')
-    print('PRESS SPACE BAR TO STEP THROUGH TIME :)')
-    print('Quit by pressing q')
-    print('View credits with c')
+    print('PRESS ENTER TO STEP THROUGH TIME :)')
+    print('Press (a) for auto run!')
+    print('Quit by pressing (q)')
+    print('View credits with (c)')
+    print('')
+    time.sleep(10)
     ConwayGame = World(x, y, val)
-    user_action = ' '
-    while user_action != 'q':
-        print('')
-        print('')
-        user_action = input('Commands: (q) (enter) (c)')
+    #ConwayGame.displayGrid()
+    print('')
 
-        if user_action == '':
+    press = ' '
+    while press != 'q':
+        print('')
+        print('')
+        press = input('Commands: (q=quit) (enter=timestep) (a=auto) (c=credits)')
+
+        if press == 'a':
+            answer = 'Y'
+            while answer == 'Y' or answer == 'y':
+                length = 50
+                i = 0
+                while i != length:
+                    i = i+1
+                    time.sleep(.5)
+                    ConwayGame.updateCells()
+                    ConwayGame.displayGrid()
+                answer = input("Continue? (Y/N)")
+                if answer == 'Y':
+                    continue
+                elif answer == 'N':
+                    break
+
+        if press == '':
             print('')
             print('')
             ConwayGame.updateCells()
-            # ConwayGame.displayGrid()
-        if user_action == 'c':
+            ConwayGame.displayGrid()
+        if press == 'c':
             print('')
             print('')
             print('CREDITS: ')
@@ -237,5 +269,4 @@ def main():
     print('')
     print('')
 
-if __name__ == "__main__":
-    main()    
+main()  
