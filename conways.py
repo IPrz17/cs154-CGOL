@@ -104,24 +104,54 @@ class World ():
 
     def updateCells(self):
         
-        listOfDeath = []  #living cells to kill with flu shots
-        wildBulldogs = [] #dead cells to reincarnate as wild bulldogs
+        liveCellsToDie = []  #list of living cells that need to die
+        deadCellsToLive = [] #list of dead cells that need to become alive
 
         for row in range(len(self.grid)):
             for col in range(len(self.grid[row])):
                 #get the valid neighbors to check
+
                 neighborsToCheck = self.getValidNeighbors(row , col)
-                
-                listOfLife = []
+                listOfLiving = []
 
                 for nCell in neighborsToCheck:
                     #check status of ncell
+                    
                     if(nCell.isAlive()):
-                        listOfLife.append(nCell)
+                        listOfLiving.append(nCell)
 
-                #If cell is alive check the neighbour status.
+                length = len(listOfLiving)
+                cellToCheck = self.grid[row][col]
+                #Check rules if cell is ALIVE
+                if cellToCheck.isAlive():
+                    #RULE: Living cell has fewer than two live neighbors
+                    #RULE: Living cell has more than three live neighbors
+                    if length < 2 or length > 3:
+                       liveCellsToDie.append(cellToCheck) #Death of cell occurs
+
+                    #RULE: Living cell with 2 or 3 living neighbors LIVES
+                    if length == 2 or length == 3:
+                        deadCellsToLive.append(cellToCheck) #Cell becomes ALIVE
                 
-        #set status
+                #Check rules if cell is DEAD
+                else:   
+                    if length == 3:
+                    #RULE: Dead cell with exactly 3 living cells becomes ALIVE
+                        deadCellsToLive.append(cellToCheck) #Cell becomes ALIVE
+
+        #Update cells
+        for cellToDie in liveCellsToDie:
+            cellToDie.setAlive()
+
+
+        
+
+
+
+
+
+
+
 
     #determines if a neighbor is valid .. returns a bool
     def isValid(self, cellRow, cellCol, row, col):
@@ -148,12 +178,15 @@ class World ():
         for row in range(-1, 2):
             for col in range(-1, 2):
                 # if it is a valid neighbor we append the cell to the list
-                if self.isValid(cellRow, cellCol, row, col):
+                cellToCheck = self.grid[row][col]
+                if cellToCheck.isValid(cellRow, cellCol, row, col):
                     x = cellRow + row
                     y = cellCol + col
                     print('ValidN ->', x, y)
+                    #(self.grid[x][y])
                     validNeighbours.append(self.grid[x][y])
-
+                        
+                    
         return validNeighbours 
     
 
@@ -183,25 +216,25 @@ def main():
     print('Quit by pressing q')
     print('View credits with c')
     ConwayGame = World(x, y, val)
-    # user_action = ' '
-    # while user_action != 'q':
-    #     print('')
-    #     print('')
-    #     user_action = input('Commands: (q) (enter) (c)')
+    user_action = ' '
+    while user_action != 'q':
+        print('')
+        print('')
+        user_action = input('Commands: (q) (enter) (c)')
 
-    #     if user_action == '':
-    #         print('')
-    #         print('')
-    #         ConwayGame.updateCells()
-    #         ConwayGame.displayGrid()
-    #     if user_action == 'c':
-    #         print('')
-    #         print('')
-    #         print('CREDITS: ')
+        if user_action == '':
+            print('')
+            print('')
+            ConwayGame.updateCells()
+            # ConwayGame.displayGrid()
+        if user_action == 'c':
+            print('')
+            print('')
+            print('CREDITS: ')
 
-    # print('')
-    # print('')
-    # print('')
+    print('')
+    print('')
+    print('')
     print('')
 
 if __name__ == "__main__":
