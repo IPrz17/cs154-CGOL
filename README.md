@@ -22,7 +22,7 @@ This is a group project done for the class CSci 154: Simulations
 
 * Python3[]()
 * GitHub[]()
-* Zoom 
+* Zoom
 * Git
 
 <!-- LICENSE -->
@@ -30,7 +30,7 @@ This is a group project done for the class CSci 154: Simulations
 None
 
 <!-- Contributions -->
-## Contributions 
+## Contributions
 [[Contributors][contributors-url]]
 
 Kyle Kilcrease:
@@ -45,7 +45,7 @@ Eric Smrkovsky:
     * Pair programming with Israel
     * Created user interface
     * Created manual input functionality
-    * Created preset grid options by setting starting live nodes 
+    * Created preset grid options by setting starting live nodes
       - Triomino patterns
       - Tetromino patterns
       - Gliders
@@ -60,9 +60,9 @@ Israel Perez:
   - Researched game rules and different types of object
   - Python Programming
     * Pair programming with Eric
-  - Presentation
+  - Presentation  
     * Created slideshow using Canva
-    
+
 
 <!-- CONTACT -->
 ## Contact
