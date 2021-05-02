@@ -27,7 +27,7 @@ This is a group project done for the class CSci 154: Simulations
 
 <!-- LICENSE -->
 ## License
-None
+MIT License
 
 <!-- Contributions -->
 ## Contributions
@@ -81,7 +81,7 @@ Israel Perez - (iperez17@mail.fresnostate.edu) - email
 
 Project Link: [Conways Game of Life Github](https://github.com/IPrz17/cs154-CGOL)  
 Report: []()
-Presentation: [Conways Game of Life Presentation]()
+Presentation: [Conways Game of Life Presentation](https://www.canva.com/design/DAEbnFlKmKg/kMN2j9xyyhvY3g6JE0sljQ/edit)
 
 <!-- ACKNOWLEDGEMENTS -->
 ## Acknowledgements
