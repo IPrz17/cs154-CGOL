@@ -2,7 +2,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/IPrz17/cs154-CGOL">
-    <img src="https://github.com/NavSanya/AsthmaTravels/blob/main/Images/Logo1.png" alt="Logo" width="280" height="280">
+    <img src="https://github.com/IPrz17/cs154-CGOL/blob/main/Images/name%20pic.PNG" alt="Logo" width="280" height="280">
   </a>
 
   <h1 style="font-size:300%;" align="center" >Conway's Game of Life</h1>
