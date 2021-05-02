@@ -10,7 +10,7 @@
   <p align="center">
      DESCRIPTION
     <br />
-    <a href="https://github.com/IPrz17/cs154-CGOL"><strong>View Demo</a>
+    <a href="https://www.youtube.com/watch?v=SbK_-PZSBko"><strong>View Demo</a>
   </p>
 </p>
 
@@ -38,6 +38,7 @@ Kyle Kilcrease:
 Nav Sanya Anand:
 
 Eric Smrkovsky:  
+  - Licensed software
   - Researched game rules and different types of objects
   - Created ReadMe File  
     * Used HTML
